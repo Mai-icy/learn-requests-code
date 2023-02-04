@@ -425,7 +425,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
         # Don't do any URL preparation for non-HTTP schemes like `mailto`,
         # `data` etc to work around exceptions from `url_parse`, which
         # handles RFC 3986 only.
-        if ":" in url and not url.lower().startswith("http"):
+        if ":" in url and not url.lower().startswith("http"):  # 确保不包含协议
             self.url = url
             return
 
@@ -435,7 +435,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
         except LocationParseError as e:
             raise InvalidURL(*e.args)
 
-        if not scheme:
+        if not scheme:  # 协议 https 或者 http 这种
             raise MissingSchema(
                 f"Invalid URL {url!r}: No scheme supplied. "
                 f"Perhaps you meant https://{url}?"

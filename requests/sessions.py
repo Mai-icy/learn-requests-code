@@ -371,6 +371,7 @@ class Session(SessionRedirectMixin):
       <Response [200]>
     """
 
+    # __attrs__ 是作者自己定义的名称 非python魔法 代表有的成员变量
     __attrs__ = [
         "headers",
         "cookies",
@@ -448,7 +449,7 @@ class Session(SessionRedirectMixin):
         self.mount("https://", HTTPAdapter())
         self.mount("http://", HTTPAdapter())
 
-    def __enter__(self):
+    def __enter__(self):  # 上下文管理器 with
         return self
 
     def __exit__(self, *args):
