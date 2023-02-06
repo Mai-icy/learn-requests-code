@@ -31,6 +31,18 @@ def parse_url_test_1():
     print(scheme, auth, host, port, path, query, fragment)
 
 
+def chardet_test_1():
+    try:
+        import chardet
+    except ImportError:
+        import charset_normalizer as chardet
+
+    text = b'\xe4\xbd\xa0\xe5\xa5\xbd'
+
+
+    print(chardet.detect(text)["encoding"])
+
+
 if __name__ == '__main__':
     ...
     import requests
@@ -38,3 +50,6 @@ if __name__ == '__main__':
     # urlparse_test_1()
     # to_key_val_list_test1()
     # parse_url_test_1()
+    chardet_test_1()
+
+

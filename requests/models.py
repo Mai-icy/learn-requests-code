@@ -400,7 +400,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
     @staticmethod
     def _get_idna_encoded_host(host):
         import idna
-
+        # 检测是否有不合法的域名语言或者符号，由于国际化域名，域名可以为中文，于是用idna来检测
         try:
             host = idna.encode(host, uts46=True).decode("utf-8")
         except idna.IDNAError:
@@ -654,7 +654,7 @@ class Response:
         "cookies",
         "elapsed",
         "request",
-    ]
+    ]  # 用于序列化
 
     def __init__(self):
         self._content = False
@@ -738,7 +738,7 @@ class Response:
         """
         return self.ok
 
-    def __nonzero__(self):
+    def __nonzero__(self):  # 用于兼容python2
         """Returns True if :attr:`status_code` is less than 400.
 
         This attribute checks if the status code of the response is between
@@ -768,7 +768,7 @@ class Response:
         return True
 
     @property
-    def is_redirect(self):
+    def is_redirect(self):  # 8
         """True if this Response is a well-formed HTTP redirect that could have
         been processed automatically (by :meth:`Session.resolve_redirects`).
         """
