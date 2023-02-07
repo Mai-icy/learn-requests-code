@@ -39,17 +39,32 @@ def chardet_test_1():
 
     text = b'\xe4\xbd\xa0\xe5\xa5\xbd'
 
-
     print(chardet.detect(text)["encoding"])
 
+
+def with_test_1():
+    with requests.get("https://www.baidu.com") as response:
+        data = response.status_code
+        ...  # get the data you want
+    print(data)
+
+
+def api_test_2():
+    import requests
+
+    session = requests.session()
+    response = session.get("https://www.baidu.com")
+
+    data = response.text
+    print(data)
 
 if __name__ == '__main__':
     ...
     import requests
+
     # requests.get("http://user:pass@www.baidu.com:77/path1?arg1=1&arg2=2#frag")
     # urlparse_test_1()
     # to_key_val_list_test1()
     # parse_url_test_1()
-    chardet_test_1()
-
-
+    # chardet_test_1()
+    api_test_2()

@@ -215,6 +215,10 @@ print(chardet.detect(text)["encoding"])
 
 ## 12
 
+连接池概念
+
+## 13
+
 
 
 
