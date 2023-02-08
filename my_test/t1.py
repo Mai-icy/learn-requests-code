@@ -58,6 +58,17 @@ def api_test_2():
     data = response.text
     print(data)
 
+def CaseInsensitiveDict_test_1():
+    from requests.structures import CaseInsensitiveDict
+
+    ca = CaseInsensitiveDict()
+
+    ca["hello"] = "123"
+    ca["hellO"] = "123"
+    print(ca)
+    print(ca["hellO"])
+
+
 if __name__ == '__main__':
     ...
     import requests
@@ -67,4 +78,4 @@ if __name__ == '__main__':
     # to_key_val_list_test1()
     # parse_url_test_1()
     # chardet_test_1()
-    api_test_2()
+    CaseInsensitiveDict_test_1()

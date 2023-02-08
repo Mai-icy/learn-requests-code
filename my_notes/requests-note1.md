@@ -67,3 +67,29 @@ def dispatch_hook(key, hooks, hook_data, **kwargs):
 ```
 
 并可以给hook附带参数
+
+## 3
+
+添加重试次数的方法
+
+```
+:param max_retries: The maximum number of retries each connection
+    should attempt. Note, this applies only to failed DNS lookups, socket
+    connections and connection timeouts, never to requests where data has
+    made it to the server. By default, Requests does not retry failed
+    connections. If you need granular control over the conditions under
+    which we retry a request, import urllib3's ``Retry`` class and pass
+    that instead.
+
+Usage::
+
+  >>> import requests
+  >>> s = requests.Session()
+  >>> a = requests.adapters.HTTPAdapter(max_retries=3)
+  >>> s.mount('http://', a)
+```
+
+https请求请使用`s.mount('http://', a)`
+
+>关于重试：每个连接应该尝试的最大重试次数。注意，这只适用于DNS查找失败、套接字连接和连接超时，永远不会适用于数据已经到达服务器的请求。默认情况下，请求不会重试失败的连接。如果你需要精确控制重试请求的条件，导入urllib3的`` Retry ``类并传递它。
+
