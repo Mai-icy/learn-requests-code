@@ -1,3 +1,10 @@
+---
+title:  Python库requests源码阅读笔记 - 结构篇
+date: 2023-02-09 12:46:21
+tags: python requests 
+categories: python 
+---
+
 # requests源码阅读整理
 
 ## 主要运行过程和思想
@@ -15,6 +22,8 @@ and maintain connections.
 `api.py`: This module implements the Requests API.
 
 ### 在`models.py`文件中
+
+#### Requests 和 PreparedRequest
 
 将 请求 `Request`作为一个类，内部包含了请求的各种参数，请求类并不包含请求功能。它的功能只有储存相关参数和检查相关参数的合法性，以及扩大参数适应性。同时具有和其他类的适配性。
 
@@ -93,7 +102,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
 
 `RequestEncodingMixin`虽然只被使用了一次，应当可以直接并入`PreparedRequest`类中，但是同时可以发现，移出的`RequestEncodingMixin`内容仅和很复杂的编码关系有关，为了利于测试，单独出来是合理的，并且增进了代码的可读性。
 
-
+#### Response
 
 `Response`类的思想相似，将回复作为一个类，装填回复的内容并返回给用户以便操作。`Response`类额外提供了一个序列化功能，可以序列化回复类进行保存。
 
@@ -127,18 +136,18 @@ response = session.get("https://www.baidu.com")
 >
 > ```
 > def session():
->     """
->     Returns a :class:`Session` for context-management.
+>  """
+>  Returns a :class:`Session` for context-management.
 > 
->     .. deprecated:: 1.0.0
+>  .. deprecated:: 1.0.0
 > 
->         This method has been deprecated since version 1.0.0 and is only kept for
->         backwards compatibility. New code should use :class:`~requests.sessions.Session`
->         to create a session. This may be removed at a future date.
+>      This method has been deprecated since version 1.0.0 and is only kept for
+>      backwards compatibility. New code should use :class:`~requests.sessions.Session`
+>      to create a session. This may be removed at a future date.
 > 
->     :rtype: Session
->     """
->     return Session()
+>  :rtype: Session
+>  """
+>  return Session()
 > ```
 >
 > 其中也写道可能会在未来被删除，实际上就是实例化一个`Session`类。
@@ -452,5 +461,21 @@ except ImportError:
     import charset_normalizer as chardet
 ```
 
+### 在`packages.py`文件中
+
+略
+
 ## 其他
+
+
+
+## 其他文件
+
+关于请求的参数：
+
+`auth.py`, `cookies.py` , `hooks.py`, `certs.py`
+
+关于项目信息：
+
+`__version__.py`, `status_codes.py` , `help.py`
 
